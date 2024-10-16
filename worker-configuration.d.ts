@@ -1,7 +1,5 @@
-
-interface  Env {
-	BILLING_KV: KVNamespace;
+let Env =  {
+	BILLING_KV: null,
 }
 
-
-export {Env};
+export = Env;

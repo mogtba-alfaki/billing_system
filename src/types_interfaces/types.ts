@@ -1,7 +1,7 @@
 
 
 
-export interface SubscriptionPlan {
+export interface Plan {
 	id: string;
 	name: string;
 	billing_cycle: 'monthly' | 'yearly';
@@ -24,4 +24,22 @@ export interface Payment {
 	amount: number;
 	payment_method: 'credit_card' | 'paypal';
 	payment_date: string;
+}
+
+export interface CustomerSubscription {
+	id: string;
+	customer_id: string;
+	plan_id: string;
+	billing_cycle: 'monthly' | 'yearly';
+	price: number;
+	name: string;
+	status: 'active' | 'inactive';
+	start_date: string;
+	end_date: string;
+}
+
+
+export interface AssignCustomerToPlan {
+	customer_id: string;
+	plan_id: string;
 }

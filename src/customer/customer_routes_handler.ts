@@ -10,12 +10,12 @@ export class CustomerRoutesHandler {
         this.getCustomerUseCase = new GetCustomerUseCase();
     };
 
-    async handelRoutes(request: Request, path: string[]): Promise<Response> {
-        const id = path[2];
-        if (request.method === 'GET') {
+    async handelRoutes(request: Request, path: string): Promise<Response> {
+      if (request.method === 'GET') {
+            const id = (path.split('/').pop()) ?? '';
           return this.getCustomerUseCase.byId(id);
         } else if (request.method === 'POST') {
-            const customerData = request.formData() as unknown as Customer;
+            const customerData = (await request.json()) as Customer;
             return this.createCustomerUseCase.create(customerData);
         }
         return new Response('Method Not Allowed', { status: 405 });
