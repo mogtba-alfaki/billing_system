@@ -19,8 +19,21 @@ let getSubscriptionInvoice = async (customerSubscriptionId: string)  => {
   return d1Db.prepare(`SELECT * FROM invoices WHERE customer_id = ? AND payment_status = 'Pending'`).bind(customerSubscriptionId).first();
 }
 
+let getInvoiceById = async (invoiceId: string): Promise<Invoice | null> => {
+  const d1Db = getD1Database();
+  return d1Db.prepare(`SELECT * FROM invoices WHERE id = ?`).bind(invoiceId).first();
+}
+
+let updateInvoiceStatus = async (invoiceId: string, status: string): Promise<Invoice | null> => {
+  const d1Db = getD1Database();
+  return d1Db.prepare(`UPDATE invoices SET payment_status = ? WHERE id = ?`).bind(status, invoiceId).first();
+}
+
 
 
 export const InvoicesData = {
   createInvoice,
+  getInvoiceById,
+  getSubscriptionInvoice,
+  updateInvoiceStatus,
 }

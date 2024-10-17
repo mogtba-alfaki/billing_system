@@ -1,6 +1,6 @@
 
 
-
+/* system entities */
 export interface Plan {
 	id: string;
 	name: string;
@@ -24,6 +24,7 @@ export interface Payment {
 	amount: number;
 	payment_method: 'credit_card' | 'paypal';
 	payment_date: string;
+	payment_status: 'paid' | 'failed';
 }
 
 export interface CustomerSubscription {
@@ -39,7 +40,17 @@ export interface CustomerSubscription {
 }
 
 
+/* dto's (data transfer objects) */
+
 export interface AssignCustomerToPlan {
 	customer_id: string;
 	plan_id: string;
+}
+
+export interface PaymentGatewayIntegrationChargePayment {
+	amount: number,
+	cardNumber: string,
+	cardExpMonth: string,
+	cardExpYear: string,
+	cardCVC: string
 }
