@@ -3,11 +3,10 @@ import {CustomerSubscription } from "../types_interfaces/types";
 
 
 
-let getCustomerSubscriptionByCustomerId = async (customerId: string) => {
+let getActiveCustomerSubscriptionByCustomerId = async (customerId: string) => {
   const d1Db = getD1Database();
 
   const data = await d1Db.prepare(`SELECT * FROM customer_subscriptions WHERE customer_id = ? AND customer_subscriptions.status = 'active'`).bind(customerId).first();
-  console.log(data);
   return data;
 }
 
@@ -27,6 +26,6 @@ let createCustomerSubscription = async (customerSubscriptionDto: CustomerSubscri
 
 
 export const CustomerSubscriptionData = {
-    getCustomerSubscriptionByCustomerId,
+  getActiveCustomerSubscriptionByCustomerId,
     createCustomerSubscription
 }

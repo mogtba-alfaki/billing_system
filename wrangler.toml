@@ -14,3 +14,7 @@ compatibility_date = "2024-10-11"
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "billing_system"
 database_id = "aa58161b-6b6f-4fe3-ae21-3807990e5339"
+
+
+[triggers]
+crons = ["* * * * *"]

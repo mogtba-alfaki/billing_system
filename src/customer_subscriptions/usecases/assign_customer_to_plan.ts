@@ -23,7 +23,7 @@ export class AssignCustomerToPlanUseCase {
 			throw new Error('Plan not found');
 		}
 		
-		const currentCustomerSubscription = await CustomerSubscriptionData.getCustomerSubscriptionByCustomerId(assignData.customer_id);
+		const currentCustomerSubscription = await CustomerSubscriptionData.getActiveCustomerSubscriptionByCustomerId(assignData.customer_id);
 		if (currentCustomerSubscription) {
 			throw new Error('Customer already has an active subscription Please upgrade or cancel the current subscription'); 
 		}
