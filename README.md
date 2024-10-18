@@ -103,6 +103,7 @@ wrangler.toml
 
 ## Running the Worker Locally
 
+# Api requests collection is proviced in the repository, filename -> (billing_system_api_collection.json)
 To run the worker locally for testing purposes, use the following command:
 
 ```sh
