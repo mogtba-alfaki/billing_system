@@ -18,11 +18,11 @@ export class CustomerSubscriptionRoutesHandler {
       if (request.method === 'GET') {
             const id = (path.split('/').pop()) ?? null;
             if(id) {
-                const plan = await this.getCustomerSubscriptions.byCustomerId(id);
-                return new Response(JSON.stringify(plan), { status: 200 });
+                const subscription = await this.getCustomerSubscriptions.byCustomerId(id);
+                return new Response(JSON.stringify(subscription), { status: 200 });
             }
-            const plans = await this.getCustomerSubscriptions.all();
-            return new Response(JSON.stringify(plans), { status: 200 });
+            const allSubscriptions = await this.getCustomerSubscriptions.all();
+            return new Response(JSON.stringify(allSubscriptions), { status: 200 });
         } else if (request.method === 'POST') {
             const subscriptionData = (await request.json()) as AssignCustomerToPlan;
             const subscription = await  this.assignCustomerToPlanUseCase.assign(subscriptionData);

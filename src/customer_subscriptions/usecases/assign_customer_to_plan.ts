@@ -59,7 +59,7 @@ export class AssignCustomerToPlanUseCase {
 		}
 
 		return {
-			startDate: new Date(),
+			startDate: new Date().toISOString(),
 			endDate: planEndDate,
 		};
 	}

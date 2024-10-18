@@ -8,13 +8,14 @@ let getActiveCustomerSubscriptionByCustomerId = async (customerId: string) => {
   const kvStore = getKvStore(); 
   const cachedSubscriptionFound = await kvStore.get(customerId);
 
-  if(cachedSubscriptionFound) {
+  if(cachedSubscriptionFound && cachedSubscriptionFound !== 'null' && cachedSubscriptionFound !== '') {
     return JSON.parse(cachedSubscriptionFound);
   }
-
   const d1Db = getD1Database();
-  const data = await d1Db.prepare(`SELECT * FROM customer_subscriptions WHERE customer_id = ? AND customer_subscriptions.status = 'active'`).bind(customerId).first();
-  
+  const data = await d1Db
+  .prepare(`SELECT * FROM customer_subscriptions WHERE customer_id = ? AND customer_subscriptions.status = 'active'`)
+  .bind(customerId)
+  .first();
   await kvStore.put(customerId, JSON.stringify(data));
   return data;
 }
