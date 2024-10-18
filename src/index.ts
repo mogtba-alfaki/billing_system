@@ -21,7 +21,12 @@ export default {
   },
 
   async scheduled(controller: any, environment: Env, context: any) {
-    // logic to generate customer invoices at the end of billing cycle will be called here
+    const currentMinutes = new Date(controller.scheduledTime).getUTCMinutes();
+    if (currentMinutes === 0) {
+      console.log("Generating invoices...");
+    } else if (currentMinutes === 30) {
+      console.log("Retrying failed payments...");
+    }
   }
 }
 

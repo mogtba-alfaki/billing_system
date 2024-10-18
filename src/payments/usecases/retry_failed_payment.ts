@@ -71,7 +71,7 @@ class RetryFailedPayment {
       } as Payment;
 
       const createdPayment = await PaymentData.createPayment(paymentDto);
-      // update the invoice status
+      // update invoice status to paid
       await InvoicesData.updateInvoiceStatus(invoiceId, 'paid');
       return createdPayment;
     } else {
