@@ -26,7 +26,9 @@ const getPlanById = async (planId: string) => {
 
 const getAllPlans = async () => {
   const d1Db = getD1Database();
-  return d1Db.prepare('SELECT * FROM plans').first();
+  const data = await d1Db.prepare('SELECT * FROM plans')
+  .all();
+  return data.results;
 }
 
 export const PlansData = {

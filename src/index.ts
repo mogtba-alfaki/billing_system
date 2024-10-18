@@ -35,7 +35,7 @@ export default {
 }
 
 
-export function getDataProvider() {
+export function getKvStore() {
   return billingKvStore;
 }
 

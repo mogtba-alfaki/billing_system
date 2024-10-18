@@ -1,4 +1,3 @@
-import { getDataProvider } from "../..";
 import { InvoicesData } from "../../invoices/invoices_data";
 import { Customer } from "../../types/types";
 import { CustomerData } from "../customer_data";
