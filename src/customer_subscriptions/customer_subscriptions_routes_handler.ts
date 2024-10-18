@@ -1,6 +1,6 @@
 import { AssignCustomerToPlan, Plan } from "../types_interfaces/types";
 import { AssignCustomerToPlanUseCase } from "./usecases/assign_customer_to_plan";
-import { GetCustomerSubscriptionsUseCase } from "./usecases/get_plans_usecase";
+import { GetCustomerSubscriptionsUseCase } from "./usecases/get_customer_subscriptions_usecase";
 
 export class CustomerSubscriptionRoutesHandler { 
     private readonly assignCustomerToPlanUseCase: AssignCustomerToPlanUseCase;

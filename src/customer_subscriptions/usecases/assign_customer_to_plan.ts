@@ -1,5 +1,6 @@
-import { getD1Database } from "../..";
+import { CustomerData } from "../../customer/customer_data";
 import { generateUUID } from "../../helpers/generate_random_id";
+import { PlansData } from "../../plans/plans_data";
 import { AssignCustomerToPlan, CustomerSubscription } from "../../types_interfaces/types";
 import { CustomerSubscriptionData } from "../customer_subscriptions_data";
 
@@ -10,10 +11,9 @@ export class AssignCustomerToPlanUseCase {
 	};
 
 	async assign(assignData: AssignCustomerToPlan) {
-		const d1Db = getD1Database();
 
-		const planFound = await d1Db.prepare(`SELECT * FROM plans WHERE id = ?`).bind(assignData.plan_id).first();
-		const customerFound = await d1Db.prepare(`SELECT * FROM customers WHERE id = ?`).bind(assignData.customer_id).first();
+		const planFound = await PlansData.getPlanById(assignData.plan_id);
+		const customerFound = await CustomerData.getCustomerById(assignData.customer_id);
 		
 		if (!customerFound) {
 			throw new Error('Customer not found');

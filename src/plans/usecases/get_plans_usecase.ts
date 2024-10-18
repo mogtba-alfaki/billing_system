@@ -3,6 +3,7 @@
 import { getD1Database } from "../..";
 import { generateUUID } from "../../helpers/generate_random_id";
 import { Plan } from "../../types_interfaces/types";
+import { PlansData } from "../plans_data";
 
 
 
@@ -11,9 +12,6 @@ export class GetPlanUseCase {
     };
 
     async all() {
-        const d1Db = getD1Database(); 
-
-        return d1Db.prepare(`SELECT * FROM plans`)
-        .first();
+        return PlansData.getAllPlans();
     }
 }

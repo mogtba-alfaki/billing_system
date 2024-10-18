@@ -7,7 +7,7 @@ import { GenerateSubscriptionInvoice } from "./usecases/generate_subscription_in
 export const generateInvoicesCornHandler = async () => {
   const d1Db = getD1Database();
   const customerSubscriptions = await d1Db
-  .prepare(`SELECT * FROM customer_subscriptions WHERE status = 'active' and end_date > ?`)
+  .prepare(`SELECT * FROM customer_subscriptions WHERE status = 'active' and end_date <= ?`)
   .bind(new Date())
   .all() as unknown as CustomerSubscription[];
 

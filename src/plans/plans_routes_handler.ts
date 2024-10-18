@@ -17,7 +17,8 @@ export class PlansRoutesHandler {
             return new Response(JSON.stringify(plans), { status: 200 });
         } else if (request.method === 'POST') {
             const planData = (await request.json()) as Plan;
-            return this.createPlanUseCase.createPlan(planData);
+            const plan = await this.createPlanUseCase.createPlan(planData);
+            return new Response(JSON.stringify(plan), { status: 201 });
         }
         return new Response('Method Not Allowed', { status: 405 });
       }

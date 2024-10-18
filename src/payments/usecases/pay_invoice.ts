@@ -1,3 +1,5 @@
+import { CustomerData } from "../../customer/customer_data";
+import { EmailService } from "../../helpers/email_service";
 import { generateUUID } from "../../helpers/generate_random_id";
 import { InvoicesData } from "../../invoices/invoices_data";
 import { PaymentGatewayIntegration } from "../../payment_gateway_integration/payment_gateway_integration";
@@ -9,7 +11,7 @@ import { PaymentData } from "../payments_data";
 export class PayInvoiceUseCase {
   async pay(invoiceId: string): Promise<Payment | null> {
     const invoice = await InvoicesData.getInvoiceById(invoiceId);
-    console.log(`Proceeding Paying INvoice`);
+    console.log(`Proceeding Paying Invoice`);
     console.log(invoice);
     if (!invoice) {
       throw new Error('Invoice not found');
@@ -60,7 +62,6 @@ export class PayInvoiceUseCase {
     }
 
 
-    console.log(paymentStatus);
     if (paymentStatus.sucess && paymentStatus.failaur_reason == PaymentFailureReasons.NO_FAILURE_REASON) {
       let paymentDto = {
         id: generateUUID(),
@@ -72,8 +73,12 @@ export class PayInvoiceUseCase {
       } as Payment;
 
       const createdPayment = await PaymentData.createPayment(paymentDto);
-      // update the invoice status
+
+      // update the invoice status and notify customer
       await InvoicesData.updateInvoiceStatus(invoiceId, 'paid');
+      const customerEmail  = (await CustomerData.getCustomerById(invoice.customer_id))?.email as string;
+      await EmailService.sendPaymentSuccessEmail(customerEmail, invoiceId);
+
       return createdPayment;
     } else {
       let paymentDto = {
@@ -84,9 +89,15 @@ export class PayInvoiceUseCase {
         payment_method: 'credit_card',
         payment_status: 'failed',
       } as Payment;
+
       // a cron will handle a retries for this payment later
       const failedPayment = await PaymentData.createPayment(paymentDto);
       await InvoicesData.updateInvoiceStatus(invoiceId, 'failed');
+
+      // send payment failed email to the customer
+      const customerEmail  = (await CustomerData.getCustomerById(invoice.customer_id))?.email as string;
+      await EmailService.sendPaymentFailedEmail(customerEmail, invoiceId);
+      
       return failedPayment;
     }
   }

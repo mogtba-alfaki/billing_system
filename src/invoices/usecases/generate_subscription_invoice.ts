@@ -1,4 +1,6 @@
+import { CustomerData } from "../../customer/customer_data";
 import { CustomerSubscriptionData } from "../../customer_subscriptions/customer_subscriptions_data";
+import { EmailService, sendEmail } from "../../helpers/email_service";
 import { generateUUID } from "../../helpers/generate_random_id";
 import { Invoice } from "../../types_interfaces/types";
 import { InvoicesData } from "../invoices_data";
@@ -34,8 +36,13 @@ export class GenerateSubscriptionInvoice {
         
        let createdInvoice = await InvoicesData.createInvoice(invoiceDto);
        
+       if (!createdInvoice) {
+         throw new Error('Failed to create invoice');
+       }
 
-       // todo:  notify the user with an email 
+       // notify the user with an email 
+       const customerEmail = (await CustomerData.getCustomerById(customerId))?.email as string;
+       await EmailService.sendInvoiceGeneratedEmail(customerEmail, createdInvoice);
       return createdInvoice;
     }
 }
