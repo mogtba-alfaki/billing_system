@@ -29,9 +29,17 @@ let getAllCustomersSubscriptions = async () => {
   return d1Db.prepare(`SELECT * FROM customer_subscriptions`).first();
 }
 
+let updateCustomerSubscriptionStatus = async (customerId: string, status: string) => {
+  const d1Db = getD1Database();
+  return d1Db.prepare(`UPDATE customer_subscriptions SET status = ? WHERE customer_id = ?`)
+  .bind(status, customerId)
+  .run();
+}
+
 
 export const CustomerSubscriptionData = {
   getActiveCustomerSubscriptionByCustomerId,
   createCustomerSubscription,
-  getAllCustomersSubscriptions
+  getAllCustomersSubscriptions,
+  updateCustomerSubscriptionStatus,
 }

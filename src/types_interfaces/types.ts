@@ -63,3 +63,8 @@ export interface PaymentGatewayIntegrationChargePayment {
 	cardExpYear: string,
 	cardCVC: string
 }
+
+
+export interface CancelCustomerSubscriptionRequest {
+	customer_id: string;
+}

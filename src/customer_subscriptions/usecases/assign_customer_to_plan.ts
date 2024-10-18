@@ -46,7 +46,7 @@ export class AssignCustomerToPlanUseCase {
 
 		const createdSubscription = await CustomerSubscriptionData.createCustomerSubscription(customerSubscriptionDto);
 
-		return new Response(JSON.stringify(createdSubscription));
+		return createdSubscription;
 	}
 
 	private async calculateStartAndEndSubscriptionDates(billingCycle: string) {
