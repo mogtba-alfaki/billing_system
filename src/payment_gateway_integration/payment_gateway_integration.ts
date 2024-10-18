@@ -4,16 +4,11 @@
 // import { PaymentGateway } from './stribe'
 
 import { PaymentGatewayIntegrationChargePayment } from "../types_interfaces/types";
+import { PaymentIntegrationStatuses } from "./payment_gateway_integration_constants";
 
 
 // implement here some functions to pay and to check for payment status , please mitigate stripe style 
 
-
-
-let PaymentIntegrationStatuses = {
-  SUCCESS: 1,
-  FAILURE: 0
-}
 
 let charge = async (chargePaymentDto: PaymentGatewayIntegrationChargePayment) => {
 /*
@@ -39,5 +34,4 @@ let getPaymentStatus = async (paymentId: string) => {
 export const PaymentGatewayIntegration = {
   charge,
   getPaymentStatus,
-  PaymentIntegrationStatuses,
 };

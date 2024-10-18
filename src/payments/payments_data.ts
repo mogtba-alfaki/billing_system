@@ -17,6 +17,14 @@ export const createPayment = async (paymentDto: Payment): Promise<Payment | null
 }
 
 
+export const getFailedPaymentByInvoiceId = async (invoiceId: string) => {
+  const d1Db = getD1Database();
+  return d1Db.prepare(`SELECT * FROM payments WHERE invoice_id = ? AND payment_status = 'failed'`)
+  .bind(invoiceId).first();
+}
+
+
 export const PaymentData = {
   createPayment,
+  getFailedPaymentByInvoiceId,
 }

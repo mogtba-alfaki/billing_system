@@ -1,3 +1,7 @@
+
+
+
+
 import { generateUUID } from "../../helpers/generate_random_id";
 import { InvoicesData } from "../../invoices/invoices_data";
 import { PaymentGatewayIntegration } from "../../payment_gateway_integration/payment_gateway_integration";
@@ -6,19 +10,19 @@ import { Payment, PaymentGatewayIntegrationChargePayment } from "../../types_int
 import { PaymentData } from "../payments_data";
 
 
-export class PayInvoiceUseCase {
-  async pay(invoiceId: string): Promise<Payment | null> {
+class RetryFailedPayment {
+  async retry(invoiceId: string): Promise<Payment | null> {
     const invoice = await InvoicesData.getInvoiceById(invoiceId);
-    console.log(`Proceeding Paying INvoice`);
-    console.log(invoice);
-    if (!invoice) {
-      throw new Error('Invoice not found');
+    const payment = await PaymentData.getFailedPaymentByInvoiceId(invoiceId);
+
+    if (!invoice || !payment) {
+      throw new Error('Invoice or a failed payment record not found');
     }
-    
+
     if (invoice.payment_status == 'paid') {
-      throw new Error(`Invoice already paid`);
+      throw new Error('Invoice already paid');
     }
-    
+
 
     // dummy payment integration dto 
     let paymentIntegrationDto = {
@@ -34,19 +38,16 @@ export class PayInvoiceUseCase {
       failaur_reason: PaymentFailureReasons.NO_FAILURE_REASON,
     }
 
-    // call gateway integration and record the payment status
     try {
 
       let gatewayResponseStatus = await PaymentGatewayIntegration.charge(paymentIntegrationDto);
 
       if (gatewayResponseStatus === PaymentIntegrationStatuses.SUCCESS) {
-
         paymentStatus = {
           sucess: PaymentIntegrationStatuses.SUCCESS,
           failaur_reason: PaymentFailureReasons.NO_FAILURE_REASON,
         }
       } else {
-
         paymentStatus = {
           sucess: PaymentIntegrationStatuses.FAILURE,
           failaur_reason: PaymentFailureReasons.INTEGRATION_FAILURE,
@@ -59,8 +60,6 @@ export class PayInvoiceUseCase {
       }
     }
 
-
-    console.log(paymentStatus);
     if (paymentStatus.sucess && paymentStatus.failaur_reason == PaymentFailureReasons.NO_FAILURE_REASON) {
       let paymentDto = {
         id: generateUUID(),
@@ -76,18 +75,8 @@ export class PayInvoiceUseCase {
       await InvoicesData.updateInvoiceStatus(invoiceId, 'paid');
       return createdPayment;
     } else {
-      let paymentDto = {
-        id: generateUUID(),
-        invoice_id: invoiceId,
-        amount: invoice.amount,
-        payment_date: new Date().toISOString(),
-        payment_method: 'credit_card',
-        payment_status: 'failed',
-      } as Payment;
-      // a cron will handle a retries for this payment later
-      const failedPayment = await PaymentData.createPayment(paymentDto);
-      await InvoicesData.updateInvoiceStatus(invoiceId, 'failed');
-      return failedPayment;
+      // another failuer, return the existing failed payment
+      return payment as unknown as Payment;
     }
   }
 }

@@ -21,7 +21,7 @@ export default {
   },
 
   async scheduled(controller: any, environment: Env, context: any) {
-    // logic to generate customer invoices will be implemented here
+    // logic to generate customer invoices at the end of billing cycle will be called here
   }
 }
 
