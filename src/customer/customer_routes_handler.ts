@@ -13,6 +13,10 @@ export class CustomerRoutesHandler {
   async handelRoutes(request: Request, path: string): Promise<Response> {
     if (request.method === 'GET') {
       const id = (path.split('/').pop()) ?? '';
+      if(path.indexOf('invoices') != -1) {
+        const invoices = await this.getCustomerUseCase.allCustomerInvoices(id);
+        return new Response(JSON.stringify(invoices), { status: 200 });
+      }
       const customer = await this.getCustomerUseCase.byId(id);
       return new Response(JSON.stringify(customer), { status: 200 });
     } else if (request.method === 'POST') {

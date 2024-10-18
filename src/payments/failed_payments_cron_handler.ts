@@ -10,6 +10,11 @@ export const failedPaymentsCronHandler = async () => {
   let failedPayments = await d1Db.prepare(`SELECT * FROM payments WHERE payment_status = 'failed'`)
   .all() as unknown as Payment[];
   
+  if(!failedPayments || failedPayments.length == 0) {
+    console.log("No Failed Payments To Retry");
+    return;
+  }
+
   const retryFailedPaymentUseCase = new RetryFailedPayment();
   for(let failedPayment of failedPayments) {
     await retryFailedPaymentUseCase.retry(failedPayment.invoice_id)

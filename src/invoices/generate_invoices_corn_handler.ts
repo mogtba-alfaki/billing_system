@@ -11,6 +11,10 @@ export const generateInvoicesCornHandler = async () => {
   .bind(new Date())
   .all() as unknown as CustomerSubscription[];
 
+  if(!customerSubscriptions || customerSubscriptions.length == 0) {
+    console.log("No Subscriptions To Generate Invoice For");
+    return;
+  }
   const generateInvoiceUseCase = new GenerateSubscriptionInvoice();
   for(let subscription of customerSubscriptions) {
       await generateInvoiceUseCase.generate(subscription.customer_id)

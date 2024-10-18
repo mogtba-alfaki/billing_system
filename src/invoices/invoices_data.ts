@@ -29,6 +29,11 @@ let updateInvoiceStatus = async (invoiceId: string, status: string): Promise<Inv
   return d1Db.prepare(`UPDATE invoices SET payment_status = ? WHERE id = ?`).bind(status, invoiceId).first();
 }
 
+let getAllCustomerInvoices = async (customerId: string) => {
+  const d1Db = getD1Database();
+  const data = await d1Db.prepare(`SELECT * FROM invoices WHERE customer_id = ?`).bind(customerId).all();
+  return data.results;
+}
 
 
 export const InvoicesData = {
@@ -36,4 +41,5 @@ export const InvoicesData = {
   getInvoiceById,
   getSubscriptionInvoice,
   updateInvoiceStatus,
+  getAllCustomerInvoices
 }

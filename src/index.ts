@@ -8,15 +8,15 @@ export interface  Env  {
   DB: D1Database,
 }
 
-let globalDataProvider: KVNamespace;
-let billingDb: D1Database;
+let billingKvStore: KVNamespace;
+let billingD1RelationalDb: D1Database;
 export default {
   async fetch(request: Request<unknown, CfProperties<unknown>>, environment: any, context: any) {
     const url = new URL(request.url);
     const path = url.pathname;
    
-    globalDataProvider  = environment.BILLING_KV;
-    billingDb = environment.DB;
+    billingKvStore  = environment.BILLING_KV;
+    billingD1RelationalDb = environment.DB;
     const App: BillingSystemGatewayRoutesHandler = new BillingSystemGatewayRoutesHandler();
     const response = App.handleRequest(request, path);
     return response;
@@ -36,9 +36,9 @@ export default {
 
 
 export function getDataProvider() {
-  return globalDataProvider;
+  return billingKvStore;
 }
 
 export function getD1Database() {
-  return billingDb;
+  return billingD1RelationalDb;
 }
