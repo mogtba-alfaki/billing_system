@@ -10,13 +10,19 @@ import { Payment, PaymentGatewayIntegrationChargePayment } from "../../types_int
 import { PaymentData } from "../payments_data";
 
 
-class RetryFailedPayment {
-  async retry(invoiceId: string): Promise<Payment | null> {
-    const invoice = await InvoicesData.getInvoiceById(invoiceId);
-    const payment = await PaymentData.getFailedPaymentByInvoiceId(invoiceId);
+export class RetryFailedPayment {
+  async retry(paymentId: string): Promise<Payment | null> {
+    const payment = await PaymentData.getPaymentById(paymentId);
 
-    if (!invoice || !payment) {
-      throw new Error('Invoice or a failed payment record not found');
+    if(!payment) {
+      throw new Error('Payment not found');
+    } 
+
+    const invoiceId = payment.invoice_id;
+    const invoice = await InvoicesData.getInvoiceById(invoiceId);
+
+    if (!invoice) {
+      throw new Error('Invoice not found');
     }
 
     if (invoice.payment_status == 'paid') {

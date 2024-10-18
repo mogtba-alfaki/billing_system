@@ -24,7 +24,14 @@ export const getFailedPaymentByInvoiceId = async (invoiceId: string) => {
 }
 
 
+export const getPaymentById = async (paymentId: string): Promise<Payment | null> => {
+  const d1Db = getD1Database();
+  return d1Db.prepare(`SELECT * FROM payments WHERE id = ?`).bind(paymentId).first();
+}
+
+
 export const PaymentData = {
   createPayment,
   getFailedPaymentByInvoiceId,
+  getPaymentById
 }
