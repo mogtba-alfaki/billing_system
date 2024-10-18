@@ -17,4 +17,4 @@ database_id = "aa58161b-6b6f-4fe3-ae21-3807990e5339"
 
 
 [triggers]
-crons = ["* * * * *"]
+crons = ["0 * * * *", "*/30 * * * *"]  # First cron runs every hour, second cron runs every 30 minutes
