@@ -2,7 +2,7 @@
 
 import { getD1Database } from "../..";
 import { generateUUID } from "../../helpers/generate_random_id";
-import { Plan } from "../../types_interfaces/types";
+import { Plan } from "../../types/types";
 import { CustomerSubscriptionData } from "../customer_subscriptions_data";
 
 

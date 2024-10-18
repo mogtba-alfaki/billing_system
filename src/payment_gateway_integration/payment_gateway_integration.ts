@@ -3,7 +3,7 @@
 // import here a payment gateway integration eg: stripe
 // import { PaymentGateway } from './stribe'
 
-import { PaymentGatewayIntegrationChargePayment } from "../types_interfaces/types";
+import { PaymentGatewayIntegrationChargePayment } from "../types/types";
 import { PaymentIntegrationStatuses } from "./payment_gateway_integration_constants";
 
 

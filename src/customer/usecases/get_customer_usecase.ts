@@ -1,5 +1,5 @@
 import { getDataProvider } from "../..";
-import { Customer } from "../../types_interfaces/types";
+import { Customer } from "../../types/types";
 import { CustomerData } from "../customer_data";
 
 

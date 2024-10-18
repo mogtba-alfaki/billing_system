@@ -1,7 +1,7 @@
 import { CustomerData } from "../../customer/customer_data";
 import { generateUUID } from "../../helpers/generate_random_id";
 import { PlansData } from "../../plans/plans_data";
-import { AssignCustomerToPlan, CustomerSubscription } from "../../types_interfaces/types";
+import { AssignCustomerToPlan, CustomerSubscription } from "../../types/types";
 import { CustomerSubscriptionData } from "../customer_subscriptions_data";
 
 

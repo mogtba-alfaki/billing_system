@@ -1,4 +1,4 @@
-import { Plan } from "../types_interfaces/types";
+import { Plan } from "../types/types";
 import { CreatePlanUseCase } from "./usecases/create_plan_usecase";
 import { GetPlanUseCase } from "./usecases/get_plans_usecase";
 

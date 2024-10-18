@@ -1,6 +1,6 @@
 import { getD1Database } from ".."
 import { generateUUID } from "../helpers/generate_random_id";
-import { Customer } from "../types_interfaces/types";
+import { Customer } from "../types/types";
 
 
 let getCustomerById = async (customerId: string): Promise<Customer | null> => {

@@ -1,5 +1,5 @@
 import { getD1Database } from "..";
-import { Payment } from "../types_interfaces/types";
+import { Payment } from "../types/types";
 
 
 

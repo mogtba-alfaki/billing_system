@@ -1,4 +1,4 @@
-import { Invoice } from "../types_interfaces/types";
+import { Invoice } from "../types/types";
 
 // should be read from environment variables
 const MAILGUN_API_KEY = 'your_mailgun_api_key';

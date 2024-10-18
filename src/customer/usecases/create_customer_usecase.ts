@@ -1,5 +1,5 @@
 import { CustomerData } from "../customer_data";
-import { Customer } from "../../types_interfaces/types";
+import { Customer } from "../../types/types";
 
 export class CreateCustomerUseCase {
     private readonly CustomerDataTag: string = 'customer:';

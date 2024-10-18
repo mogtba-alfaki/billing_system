@@ -1,4 +1,4 @@
-import { Customer } from "../types_interfaces/types";
+import { Customer } from "../types/types";
 import { CreateCustomerUseCase } from "./usecases/create_customer_usecase";
 import { GetCustomerUseCase } from "./usecases/get_customer_usecase";
 

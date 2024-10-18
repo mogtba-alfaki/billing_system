@@ -1,5 +1,5 @@
 import { getD1Database } from "..";
-import { CustomerSubscription } from "../types_interfaces/types";
+import { CustomerSubscription } from "../types/types";
 
 
 

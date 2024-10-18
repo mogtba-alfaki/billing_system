@@ -2,7 +2,7 @@ import { CustomerData } from "../../customer/customer_data";
 import { EmailService } from "../../helpers/email_service";
 import { generateUUID } from "../../helpers/generate_random_id";
 import { InvoicesData } from "../../invoices/invoices_data";
-import { CustomerSubscription, Invoice } from "../../types_interfaces/types";
+import { CustomerSubscription, Invoice } from "../../types/types";
 import { CustomerSubscriptionData } from "../customer_subscriptions_data";
 
 

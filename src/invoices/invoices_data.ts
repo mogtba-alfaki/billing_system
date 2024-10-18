@@ -1,5 +1,5 @@
 import { getD1Database } from "..";
-import { Invoice } from "../types_interfaces/types"
+import { Invoice } from "../types/types"
 
 
 let createInvoice = async (invoice: Invoice): Promise<Invoice | null> => {

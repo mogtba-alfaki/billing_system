@@ -1,4 +1,4 @@
-import { AssignCustomerToPlan, CancelCustomerSubscriptionRequest, Plan } from "../types_interfaces/types";
+import { AssignCustomerToPlan, CancelCustomerSubscriptionRequest, Plan } from "../types/types";
 import { AssignCustomerToPlanUseCase } from "./usecases/assign_customer_to_plan";
 import { CancelCustomerSubscription } from "./usecases/cancel_customer_subscription_usecase";
 import { GetCustomerSubscriptionsUseCase } from "./usecases/get_customer_subscriptions_usecase";

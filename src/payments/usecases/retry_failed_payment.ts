@@ -6,7 +6,7 @@ import { generateUUID } from "../../helpers/generate_random_id";
 import { InvoicesData } from "../../invoices/invoices_data";
 import { PaymentGatewayIntegration } from "../../payment_gateway_integration/payment_gateway_integration";
 import { PaymentFailureReasons, PaymentIntegrationStatuses } from "../../payment_gateway_integration/payment_gateway_integration_constants";
-import { Payment, PaymentGatewayIntegrationChargePayment } from "../../types_interfaces/types";
+import { Payment, PaymentGatewayIntegrationChargePayment } from "../../types/types";
 import { PaymentData } from "../payments_data";
 
 
